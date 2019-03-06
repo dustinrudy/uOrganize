@@ -29,14 +29,18 @@ Route::get('/contact', 'PagesController@contact');
 
 */
 
-Route::resource('events', 'EventsController');
+Route::resource('events', 'EventsController')->middleware('auth');
 
 Route::post('/events/{event}/tasks', 'EventTasksController@store');
 
-Route::patch('/tasks/{task}', 'EventTasksController@update');
-/*
+Route::patch('/tasks/{task}', 'EventTasksController@update')->middleware('auth');
 
 
 
 
 
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

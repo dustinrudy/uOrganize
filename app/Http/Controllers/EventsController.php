@@ -6,9 +6,15 @@ use App\Event;
 
 class EventsController extends Controller
 {
-    public function index(){
+    public function index() {
 
-        $events = \App\Event::all();
+        // auth()->id() // returns id of user
+
+        // auth()->user() // returns User Class
+
+       // auth()->check() // returns boolean indicating whether a guest or signed in.
+
+        $events = Event::where('owner_id', auth()->id())->get();
 
 
         return view('events.index', ['events' => $events]);
@@ -28,6 +34,8 @@ class EventsController extends Controller
             'description' => ['required', 'min:3']
         ]);
 
+        $attributes['owner_id'] = auth()->id();
+
         Event::create($attributes);
 
 
@@ -37,6 +45,7 @@ class EventsController extends Controller
 
     public function show(Event $event) {
 
+        $this->authorize('view', $event);
 
         return view('events.show', compact('event'));
     }

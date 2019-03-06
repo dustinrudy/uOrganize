@@ -60,6 +60,7 @@ button {
 
 .task {
    width: 280px;
+   margin: auto;
 }
 
 .is-complete {

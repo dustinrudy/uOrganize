@@ -94,7 +94,20 @@
         <a href="/">Home</a>
         <a href="/about">About Us</a>
         <a href="/contact">Contact</a>
+        @guest
+        <a href="/home">Login</a>
+        @endguest
+
+
+        @auth
         <a href="/events">My Events </a>
+        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+            @csrf
+        </form>
+        @endauth
     </div>
 
     @yield('content')
